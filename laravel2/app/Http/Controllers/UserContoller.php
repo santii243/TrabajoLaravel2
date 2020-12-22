@@ -38,7 +38,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[ 'name'=>'required', 'surname'=>'required', 'clicle_id'=>'required', 'email'=>'required', 'passwors'=>'required', 'type'=>'required']);
+        $this->validate($request,[ 'name'=>'required', 'surname'=>'required', 'cicle_id'=>'required', 'email'=>'required', 'password'=>'required', 'type'=>'required']);
         User::create($request->all());
         return redirect()->route('User.index')->with('success','Registro creado satisfactoriamente');
     }
@@ -76,7 +76,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        ;$this->validate($request,[ 'name'=>'required', 'surname'=>'required', 'clicle_id'=>'required', 'email'=>'required', 'passwors'=>'required', 'type'=>'required']);
+        ;$this->validate($request,[ 'name'=>'required', 'surname'=>'required', 'cicle_id'=>'required', 'email'=>'required', 'password'=>'required', 'type'=>'required']);
  
         User::find($id)->update($request->all());
         return redirect()->route('User.index')->with('success','Registro actualizado satisfactoriamente');
