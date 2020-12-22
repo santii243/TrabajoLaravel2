@@ -16,8 +16,10 @@ class CreateAppliedsTable extends Migration
         Schema::create('applieds', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
-            $table->integer('offer_id')->unsigned();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedInteger('offer_id');
+            $table->foreign('offer_id')->references('id')->on('offers');
         });
     }
 
