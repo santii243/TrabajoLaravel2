@@ -53,6 +53,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('cicle_id') ? ' has-error' : '' }}">
+                            <label for="cicle_id" class="col-md-4 control-label">cicle</label>
+
+                            <div class="col-md-6">
+                                <input id="cicle_id" type="text" class="form-control" name="cicle_id" value="{{ old('cicle_id') }}" required autofocus>
+
+                                @if ($errors->has('cicle_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('cicle_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
 
                         <input id="type" type="hidden" name="type" value="">
 
