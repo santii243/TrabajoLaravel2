@@ -14,7 +14,8 @@ class CicleController extends Controller
      */
     public function index()
     {
-        //
+        $cicles=cicle::orderBy('id','DESC')->paginate(3);
+        return view('Cicles.index',compact('cicles')); 
     }
 
     /**
@@ -24,7 +25,7 @@ class CicleController extends Controller
      */
     public function create()
     {
-        //
+        return view('Cicles.create');
     }
 
     /**
@@ -35,51 +36,57 @@ class CicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[ 'name'=>'required', 'img'=>'required']);
+        Cicle::create($request->all());
+        return redirect()->route('Cicles.index')->with('success','Registro creado satisfactoriamente');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cicle  $cicle
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Cicle $cicle)
+    public function show($id)
     {
-        //
+        $cicles=article::find($id);
+        return  view('Cicles.show',compact('cicles'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cicle  $cicle
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cicle $cicle)
+    public function edit($id)
     {
-        //
+        $cicles=article::find($id);
+        return view('Cicles.edit',compact('cicles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cicle  $cicle
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cicle $cicle)
+    public function update(Request $request, $id)
     {
-        //
+        cicle:: find($id)->update(request()->all());
+       return redirect()->route('Cicles.index')->with('message',['success','ciclo modificado correctamente']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cicle  $cicle
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cicle $cicle)
+    public function destroy($id)
     {
-        //
+        cicle::find($id)->delete();
+        return redirect()->route('Cicles.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }

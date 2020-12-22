@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Applied;
+use App\User;
+use App\cicle;
+
 use Illuminate\Http\Request;
 
-class AppliedController extends Controller
+class UserController extends Controller
 {
-       /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $applieds=Applied::orderBy('id','DESC')->paginate(3);
-        return view('Applied.index',compact('applieds'));
+        $users=User::orderBy('id','DESC');
+        return view('User.index',compact('users')); 
     }
 
     /**
@@ -25,7 +27,7 @@ class AppliedController extends Controller
      */
     public function create()
     {
-        return view('Applied.create');
+        return view('User.create');
     }
 
     /**
@@ -36,9 +38,9 @@ class AppliedController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[ 'user_id'=>'required', 'offer_id'=>'required']);
-        Applied::create($request->all());
-        return redirect()->route('applied.index')->with('success','Registro creado satisfactoriamente');
+        $this->validate($request,[ 'name'=>'required', 'surname'=>'required', 'clicle_id'=>'required', 'email'=>'required', 'passwors'=>'required', 'type'=>'required']);
+        User::create($request->all());
+        return redirect()->route('User.index')->with('success','Registro creado satisfactoriamente');
     }
 
     /**
@@ -49,8 +51,8 @@ class AppliedController extends Controller
      */
     public function show($id)
     {
-        $applieds=Applied::find($id);
-        return  view('applied.show',compact('applied'));
+        $users=User::find($id);
+        return  view('User.show',compact('users'));
     }
 
     /**
@@ -61,8 +63,8 @@ class AppliedController extends Controller
      */
     public function edit($id)
     {
-        $applieds=applieds::find($id);
-        return view('applied.edit',compact('applied'));
+        $users=User::find($id);
+        return view('User.edit',compact('users'));
     }
 
     /**
@@ -74,10 +76,10 @@ class AppliedController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[ 'user_id'=>'required', 'offer_id'=>'required']);
-
-        applied::find($id)->update($request->all());
-        return redirect()->route('applied.index')->with('success','Registro actualizado satisfactoriamente');
+        ;$this->validate($request,[ 'name'=>'required', 'surname'=>'required', 'clicle_id'=>'required', 'email'=>'required', 'passwors'=>'required', 'type'=>'required']);
+ 
+        User::find($id)->update($request->all());
+        return redirect()->route('User.index')->with('success','Registro actualizado satisfactoriamente');
  
     }
 
@@ -89,7 +91,7 @@ class AppliedController extends Controller
      */
     public function destroy($id)
     {
-        Applied::find($id)->delete();
-        return redirect()->route('applied.index')->with('success','Registro eliminado satisfactoriamente');
+        User::find($id)->delete();
+        return redirect()->route('User.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }

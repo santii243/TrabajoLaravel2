@@ -14,7 +14,8 @@ class OfferController extends Controller
      */
     public function index()
     {
-        //
+        $offers=offer::orderBy('id','DESC')->paginate(3);
+        return view('Offers.index',compact('offers')); 
     }
 
     /**
@@ -24,7 +25,7 @@ class OfferController extends Controller
      */
     public function create()
     {
-        //
+        return view('Offers.create');
     }
 
     /**
@@ -35,51 +36,57 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[ 'headline'=>'required', 'description'=>'required', 'cicle_id'=>'required', 'date_max'=>'required', 'num_candidates'=>'required']);
+        Offer::create($request->all());
+        return redirect()->route('Articles.index')->with('success','Registro creado satisfactoriamente');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Offer  $offer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Offer $offer)
+    public function show($id)
     {
-        //
+        $articles=article::find($id);
+        return  view('Articles.show',compact('articles'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Offer  $offer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Offer $offer)
+    public function edit($id)
     {
-        //
+        $articles=article::find($id);
+        return view('Articles.edit',compact('articles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Offer  $offer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Offer $offer)
+    public function update(Request $request, $id)
     {
-        //
+        offer:: find($id)->update(request()->all());
+       return redirect()->route('Offers.index')->with('message',['success','ciclo modificado correctamente']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Offer  $offer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Offer $offer)
+    public function destroy($id)
     {
-        //
+        offer::find($id)->delete();
+        return redirect()->route('Offers.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }
