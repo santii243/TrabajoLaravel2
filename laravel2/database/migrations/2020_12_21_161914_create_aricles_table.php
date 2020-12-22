@@ -14,12 +14,14 @@ class CreateAriclesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->timestamps();
             $table->string('title');
             $table->string('description');
             $table->string('image');
-            $table->integer('cicle_id')->unsigned();
+            $table->unsignedInteger('cycle_id');
+            $table->foreign('cycle_id')->references('id')->on('cycles');
         });
     }
 

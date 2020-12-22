@@ -14,6 +14,7 @@ class CreateAppliedsTable extends Migration
     public function up()
     {
         Schema::create('applieds', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->timestamps();
             $table->unsignedInteger('user_id')->nullable();

@@ -14,11 +14,13 @@ class CreateOffersTable extends Migration
     public function up()
     {
         Schema::create('offers', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->timestamps();
             $table->string('headline');
             $table->string('description');
-            $table->integer('cicle_id')->unsigned();
+            $table->unsignedInteger('cicle_id');
+            $table->foreign('cicle_id')->references('id')->on('cicles');
             $table->date('date_max');
             $table->integer('num_candidates');
         });
