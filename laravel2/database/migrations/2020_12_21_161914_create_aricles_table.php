@@ -20,8 +20,8 @@ class CreateAriclesTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('image');
-            $table->unsignedInteger('cycle_id');
-            $table->foreign('cycle_id')->references('id')->on('cycles');
+            $table->unsignedInteger('cicle_id');
+            $table->foreign('cicle_id')->references('id')->on('cicles');
         });
     }
 
