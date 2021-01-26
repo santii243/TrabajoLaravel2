@@ -12,7 +12,13 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+/* TODO: Autenticacion API Descomentar en un futuro
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+*/
+
+Route::get('ciclos', 'CicleController@index');
+Route::get('ciclos/{id}', 'CicleController@show');
+Route::post('ciclos', 'CicleController@create');
+

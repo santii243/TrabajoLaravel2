@@ -14,8 +14,7 @@ class CicleController extends Controller
      */
     public function index()
     {
-        $cicles=cicle::orderBy('id','DESC')->paginate(3);
-        return view('Cicles.index',compact('cicles')); 
+        return Cicle::all();
     }
 
     /**
@@ -23,9 +22,9 @@ class CicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('Cicles.create');
+        return Cicle::create($request->all());
     }
 
     /**
@@ -34,12 +33,14 @@ class CicleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /*
     public function store(Request $request)
     {
         $this->validate($request,[ 'name'=>'required', 'img'=>'required']);
         Cicle::create($request->all());
         return redirect()->route('Cicles.index')->with('success','Registro creado satisfactoriamente');
     }
+    */
 
     /**
      * Display the specified resource.
@@ -49,8 +50,8 @@ class CicleController extends Controller
      */
     public function show($id)
     {
-        $cicles=article::find($id);
-        return  view('Cicles.show',compact('cicles'));
+        $cicle = Cicle::findOrFail($id);
+        return $cicle;
     }
 
     /**
@@ -59,11 +60,13 @@ class CicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function edit($id)
     {
         $cicles=article::find($id);
         return view('Cicles.edit',compact('cicles'));
     }
+    */
 
     /**
      * Update the specified resource in storage.
@@ -72,11 +75,12 @@ class CicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function update(Request $request, $id)
     {
         cicle:: find($id)->update(request()->all());
        return redirect()->route('Cicles.index')->with('message',['success','ciclo modificado correctamente']);
-    }
+    }*/
 
     /**
      * Remove the specified resource from storage.
@@ -84,9 +88,10 @@ class CicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function destroy($id)
     {
         cicle::find($id)->delete();
         return redirect()->route('Cicles.index')->with('success','Registro eliminado satisfactoriamente');
-    }
+    }*/
 }
