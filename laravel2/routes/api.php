@@ -22,3 +22,4 @@ Route::get('ciclos', 'CicleController@index');
 Route::get('ciclos/{id}', 'CicleController@show');
 Route::post('ciclos', 'CicleController@create');
 
+Route::get('user', 'UserController@index');
