@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use API;
 use App\Cicle;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CicleController extends Controller
 {
@@ -14,7 +16,8 @@ class CicleController extends Controller
      */
     public function index()
     {
-        return Cicle::all();
+        $ciclos = Cicle::all();
+        return API::ok('listado de ciclos', $ciclos);
     }
 
     /**
@@ -24,7 +27,8 @@ class CicleController extends Controller
      */
     public function create(Request $request)
     {
-        return Cicle::create($request->all());
+        $ciclo_creado = Cicle::create($request->all());
+        return API::response(201, 'Ciclo creado correctamente', $ciclo_creado);
     }
 
     /**
@@ -50,8 +54,15 @@ class CicleController extends Controller
      */
     public function show($id)
     {
-        $cicle = Cicle::findOrFail($id);
-        return $cicle;
+        try
+        {
+            $cicle = Cicle::findOrFail($id);
+            return API::ok("Detalle de ciclo correcto", $cicle);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return API::notFound("Ciclo no encontrado con id " . $id);
+        }
     }
 
     /**
