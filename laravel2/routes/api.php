@@ -22,4 +22,8 @@ Route::get('ciclos', 'CicleController@index');
 Route::get('ciclos/{id}', 'CicleController@show');
 Route::post('ciclos', 'CicleController@create');
 
-Route::get('user', 'UserController@index');
+Route::get('users', 'UserController@index');
+
+Route::get('offers', 'OfferController@index');
+
+Route::get('articles', 'ArticleController@index');
