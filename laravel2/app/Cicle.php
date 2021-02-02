@@ -7,17 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class Cicle extends Model
 {
     protected $table = 'cicles';
-    protected $fillable = ['name', 'img', 'created_at', 'updated_at'];
+    protected $fillable = [
+        'name',
+        'img',
+        'created_at',
+        'updated_at'
+    ];
 
-    public function users(){
-        return $this->hasMany(user::class);
+    public function users() {
+        return $this->hasMany(User::class);
     }
 
-    public function offers(){
-        return $this->hasMany(offer::class);
+    public function offers() {
+        return $this->hasMany(Offer::class);
     }
     
-    public function articles(){
-        return $this->hasMany(article::class);
+    public function articles() {
+        return $this->hasMany(Article::class);
     }
+
 }

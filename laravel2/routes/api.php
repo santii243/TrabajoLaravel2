@@ -18,12 +18,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 
-Route::get('ciclos', 'CicleController@index');
-Route::get('ciclos/{id}', 'CicleController@show');
-Route::post('ciclos', 'CicleController@create');
+/* Rutas de ciclos */
+Route::get('cicles', 'CicleController@index');
+Route::get('cicles/{cicleID}/articles', 'CicleController@listArticlesByCicleID');
+Route::get('cicles/{cicleID}/offers', 'CicleController@listOffersByCicleID');
 
+/* Rutas de usuarios */
 Route::get('users', 'UserController@index');
 
+/* Rutas de ofertas */
 Route::get('offers', 'OfferController@index');
 
+/* Rutas de noticias */
 Route::get('articles', 'ArticleController@index');

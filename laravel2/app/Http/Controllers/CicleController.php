@@ -16,93 +16,36 @@ class CicleController extends Controller
      */
     public function index()
     {
-        $ciclos = Cicle::all();
-        return API::ok('listado de ciclos', $ciclos);
+        $cicles = Cicle::all();
+        return API::ok('listado de ciclos', $cicles);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        $ciclo_creado = Cicle::create($request->all());
-        return API::response(201, 'Ciclo creado correctamente', $ciclo_creado);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    public function store(Request $request)
-    {
-        $this->validate($request,[ 'name'=>'required', 'img'=>'required']);
-        Cicle::create($request->all());
-        return redirect()->route('Cicles.index')->with('success','Registro creado satisfactoriamente');
-    }
-    */
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function listOffersByCicleID($cicleID)
     {
         try
         {
-            $cicle = Cicle::findOrFail($id);
-            return API::ok("Detalle de ciclo correcto", $cicle);
+            $cicle = Cicle::findOrFail($cicleID);
+            $offers = $cicle->offers()->get();
+            return API::ok('Listado de ofertas para el ciclo con id ' . $cicleID, $offers);
         }
         catch(ModelNotFoundException $e)
         {
-            return API::notFound("Ciclo no encontrado con id " . $id);
+            return API::notFound("Ciclo no encontrado con id " . $cicleID);
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    public function edit($id)
+    
+    public function listArticlesByCicleID($cicleID)
     {
-        $cicles=article::find($id);
-        return view('Cicles.edit',compact('cicles'));
+        try
+        {
+            $cicle = Cicle::findOrFail($cicleID);
+            $articles = $cicle->articles()->get();
+            return API::ok('Listado de articulos para el ciclo con id ' . $cicleID, $articles);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return API::notFound("Ciclo no encontrado con id " . $cicleID);
+        }
     }
-    */
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    public function update(Request $request, $id)
-    {
-        cicle:: find($id)->update(request()->all());
-       return redirect()->route('Cicles.index')->with('message',['success','ciclo modificado correctamente']);
-    }*/
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    public function destroy($id)
-    {
-        cicle::find($id)->delete();
-        return redirect()->route('Cicles.index')->with('success','Registro eliminado satisfactoriamente');
-    }*/
 }
