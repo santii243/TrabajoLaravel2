@@ -31,3 +31,7 @@ Route::get('offers', 'OfferController@index');
 
 /* Rutas de noticias */
 Route::get('articles', 'ArticleController@index');
+
+/* Rutas de applieds */
+Route::post('applieds', 'AppliedController@store');
+Route::delete('applieds/offers/{offer_id}/users/{user_id}', 'AppliedController@unapplyUserFromAppliedOffer');
